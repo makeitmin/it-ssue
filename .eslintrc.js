@@ -4,10 +4,12 @@ module.exports = {
     node: true,
   },
   extends: [
-    'googl',
+    'google',
     'prettier',
     'eslint:recommended',
     'plugin:prettier/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -16,7 +18,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['react', 'import'],
   rules: {
     'react/function-component-definition': [
       2,
@@ -47,12 +49,12 @@ module.exports = {
         ],
         pathGroups: [
           {
-            pattern: '{react}',
-            group: 'builtin',
+            pattern: '{react*,react*/**}',
+            group: 'external',
             position: 'before',
           },
         ],
-        pathGroupsExcludedImportTypes: ['builtin'],
+        pathGroupsExcludedImportTypes: ['react', 'unknown'],
         alphabetize: {
           order: 'asc',
         },
