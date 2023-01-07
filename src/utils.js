@@ -1,6 +1,6 @@
 export const getBookmarks = () => {
   const localBookmarks = localStorage.getItem('ITSSUE_BOOKMARKS');
-  if (!localBookmarks) {
+  if (localBookmarks === 'undefined') {
     return [];
   } else {
     return JSON.parse(localBookmarks);
