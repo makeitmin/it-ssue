@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Container, Box, Grid, Pagination, Stack } from '@mui/material';
+import { Container, Box, Grid, Stack } from '@mui/material';
 import styled from 'styled-components';
 
 import RepoCard from '../components/features/RepoCard';
@@ -14,6 +14,7 @@ import useResultStore from '../store/useResultStore';
 
 const Search = () => {
   const { repos } = useResultStore(state => state);
+
   return (
     <Container>
       <Stack spacing={5}>
@@ -23,6 +24,8 @@ const Search = () => {
             height: '64px',
             paddingTop: '20px',
             paddingBottom: '20px',
+            paddingRight: '12px',
+            paddingLeft: '12px',
           }}
         >
           <Grid
@@ -73,23 +76,25 @@ const Search = () => {
             </Grid>
           </Grid>
         </Box>
-        <Box style={{ width: '100%', maxHeight: '100%' }}>
-          <Grid
-            container
-            spacing={2}
-            alignItems="stretch"
-            style={{ overflow: 'auto' }}
-          >
+        <Box
+          style={{
+            width: '100%',
+            maxHeight: '60vh',
+            overflow: 'auto',
+            padding: '12px',
+          }}
+        >
+          <Grid container spacing={2} alignItems="stretch">
             {repos.map((repo, idx) => {
               console.log(repo);
               return (
                 <Grid key={repo.id} item xs={12} sm={12} md={4} lg={4} xl={4}>
-                  <RepoCard title={repo.full_name} />
+                  <RepoCard details={repo} />
                 </Grid>
               );
             })}
           </Grid>
-          <Grid
+          {/* <Grid
             container
             spacing={2}
             justifyContent="center"
@@ -101,7 +106,7 @@ const Search = () => {
               shape="rounded"
               style={{ position: 'absolute', bottom: 20 }}
             />
-          </Grid>
+          </Grid> */}
         </Box>
       </Stack>
     </Container>
