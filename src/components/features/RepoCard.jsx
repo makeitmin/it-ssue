@@ -1,21 +1,49 @@
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Card, CardContent, Grid, Box, Chip } from '@mui/material';
 import styled from 'styled-components';
 
-const RepoCard = ({ title }) => {
+import Bookmark from './Bookmark';
+
+const RepoCard = ({ details }) => {
   return (
-    <Card>
-      <CardMedia
-        sx={{ height: 50 }}
-        image="/static/images/cards/contemplative-reptile.jpg"
-        title="green iguana"
-      />
+    <ShadowCard>
       <CardContent>
-        <Title>{title}</Title>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over
-        </Typography>
+        <Grid
+          container
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Box
+            style={{
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              width: '80%',
+            }}
+          >
+            <Title>{details.full_name}</Title>
+          </Box>
+          <Bookmark id={details.id} />
+        </Grid>
+        <Box
+          style={{
+            // textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            overflowX: 'auto',
+            width: '100%',
+          }}
+        >
+          {details.topics.map((topic, idx) => (
+            <Chip
+              key={topic}
+              label={`${topic}`}
+              size="small"
+              style={{ marginRight: '8px' }}
+            />
+          ))}
+        </Box>
       </CardContent>
-    </Card>
+    </ShadowCard>
   );
 };
 
@@ -26,6 +54,13 @@ const Title = styled('span')`
   font-size: 14px;
   line-height: 18px;
   color: #000000;
+`;
+
+const ShadowCard = styled(Card)`
+  &&.MuiPaper-root {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
 `;
 
 export default RepoCard;
