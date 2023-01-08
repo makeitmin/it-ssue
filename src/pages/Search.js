@@ -4,17 +4,15 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Container, Box, Grid, Stack } from '@mui/material';
 import styled from 'styled-components';
 
-import RepoCard from '../components/features/RepoCard';
+import BookmarkBox from '../components/features/BookmarkBox';
+import ResultBox from '../components/features/ResultBox';
 import SearchBox from '../components/features/SearchBox';
-import useResultStore from '../store/useResultStore';
 
 /*
   검색 페이지
 */
 
 const Search = () => {
-  const { repos } = useResultStore(state => state);
-
   return (
     <Container>
       <Stack spacing={5}>
@@ -67,9 +65,9 @@ const Search = () => {
               item
               xs={12}
               sm={12}
-              md={6}
-              lg={6}
-              xl={6}
+              md={5}
+              lg={5}
+              xl={5}
               style={{ justifyContent: 'center', alignItems: 'center' }}
             >
               <SearchBox />
@@ -79,34 +77,19 @@ const Search = () => {
         <Box
           style={{
             width: '100%',
-            maxHeight: '60vh',
-            overflow: 'auto',
-            padding: '12px',
           }}
         >
-          <Grid container spacing={2} alignItems="stretch">
-            {repos.map((repo, idx) => {
-              console.log(repo);
-              return (
-                <Grid key={repo.id} item xs={12} sm={12} md={4} lg={4} xl={4}>
-                  <RepoCard details={repo} />
-                </Grid>
-              );
-            })}
+          <Grid container>
+            <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+              <HeaderText>내 북마크</HeaderText>
+              <BookmarkBox />
+            </Grid>
+
+            <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
+              <HeaderText>검색 결과</HeaderText>
+              <ResultBox />
+            </Grid>
           </Grid>
-          {/* <Grid
-            container
-            spacing={2}
-            justifyContent="center"
-            alignItems="center"
-            style={{ overflow: 'auto' }}
-          >
-            <Pagination
-              count={10}
-              shape="rounded"
-              style={{ position: 'absolute', bottom: 20 }}
-            />
-          </Grid> */}
         </Box>
       </Stack>
     </Container>
@@ -129,6 +112,16 @@ const MenuText = styled('span')`
   font-size: 14px;
   line-height: 18px;
   color: #000000;
+`;
+
+const HeaderText = styled('span')`
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000000;
+  margin-left: 12px;
 `;
 
 export default Search;

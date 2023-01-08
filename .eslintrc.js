@@ -35,6 +35,7 @@ module.exports = {
     ],
     'react/prop-types': 0,
     'no-console': 0,
+    'import/no-unresolved': 'off',
     'import/order': [
       'error',
       {
