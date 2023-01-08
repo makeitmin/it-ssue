@@ -1,7 +1,7 @@
 import { Card, CardContent, Grid, Box, Chip } from '@mui/material';
 import styled from 'styled-components';
 
-import Bookmark from './Bookmark';
+import BookmarkButton from './BookmarkButton';
 
 const RepoCard = ({ details }) => {
   return (
@@ -12,22 +12,15 @@ const RepoCard = ({ details }) => {
           direction="row"
           justifyContent="space-between"
           alignItems="center"
+          style={{ marginBottom: '12px' }}
         >
-          <Box
-            style={{
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              width: '80%',
-            }}
-          >
+          <TitleBox>
             <Title>{details.full_name}</Title>
-          </Box>
-          <Bookmark id={details.id} />
+          </TitleBox>
+          <BookmarkButton data={details} />
         </Grid>
         <Box
           style={{
-            // textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             overflowX: 'auto',
             width: '100%',
@@ -56,10 +49,20 @@ const Title = styled('span')`
   color: #000000;
 `;
 
+const TitleBox = styled(Box)`
+  && {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: calc(100% - 24px);
+  }
+`;
+
 const ShadowCard = styled(Card)`
   &&.MuiPaper-root {
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    margin: 12px;
   }
 `;
 

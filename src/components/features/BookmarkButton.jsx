@@ -3,15 +3,18 @@ import React, { useEffect, useState } from 'react';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { Checkbox } from '@mui/material';
+import styled from 'styled-components';
 
-import { getBookmarks, setBookmarks } from '../../utils';
+import useBookmarkStore from '../../store/useBookmarkStore';
+import { getBookmarks } from '../../utils';
 
-const Bookmark = ({ id }) => {
+const BookmarkButton = ({ data }) => {
   const [isChecked, setIsChecked] = useState(false);
+  const { setUserBookmarks } = useBookmarkStore(state => state);
 
   useEffect(() => {
     const bookmarks = getBookmarks();
-    if (bookmarks.find(b => b === id)) {
+    if (bookmarks.find(b => b.id === data.id)) {
       setIsChecked(true);
     }
   });
@@ -19,22 +22,33 @@ const Bookmark = ({ id }) => {
   const handleChangeBookmark = event => {
     let temp = getBookmarks();
     if (event.target.checked) {
-      temp.push(id);
+      temp.push({
+        id: data.id,
+        full_name: data.full_name,
+        topics: data.topics,
+      });
     } else {
-      temp = temp.filter((bId, idx) => bId !== id);
+      temp = temp.filter((t, idx) => t.id !== data.id);
     }
-    setBookmarks(temp);
+    setUserBookmarks(temp);
     setIsChecked(!isChecked);
   };
 
   return (
-    <Checkbox
+    <BookmarkCheckbox
       checked={isChecked}
       onChange={handleChangeBookmark}
+      size="small"
       icon={<BookmarkBorderIcon />}
       checkedIcon={<BookmarkIcon />}
     />
   );
 };
 
-export default Bookmark;
+const BookmarkCheckbox = styled(Checkbox)`
+  &&.MuiButtonBase-root {
+    padding: 0px;
+  }
+`;
+
+export default BookmarkButton;
