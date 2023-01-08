@@ -1,12 +1,12 @@
 import React from 'react';
 
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Container, Box, Grid, Stack } from '@mui/material';
 import styled from 'styled-components';
 
-import BookmarkBox from '../components/features/BookmarkBox';
-import ResultBox from '../components/features/ResultBox';
-import SearchBox from '../components/features/SearchBox';
+import NavBar from '../components/features/NavBar';
+import SearchBookmarkBox from '../components/features/SearchBookmarkBox';
+import SearchInputBox from '../components/features/SearchInputBox';
+import SearchResultBox from '../components/features/SearchResultBox';
 
 /*
   검색 페이지
@@ -16,44 +16,7 @@ const Search = () => {
   return (
     <Container>
       <Stack spacing={5}>
-        <Box
-          style={{
-            width: '100%',
-            height: '64px',
-            paddingTop: '20px',
-            paddingBottom: '20px',
-            paddingRight: '12px',
-            paddingLeft: '12px',
-          }}
-        >
-          <Grid
-            container
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Grid item>
-              <Box>
-                <Logo>itssue</Logo>
-              </Box>
-            </Grid>
-            <Grid item>
-              <Grid
-                container
-                alignItems="center"
-                justifyContent="center"
-                flexDirection="row"
-              >
-                <Box>
-                  <MenuText>내 이슈 모아보기</MenuText>
-                </Box>
-                <Box>
-                  <ChevronRightIcon />
-                </Box>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Box>
+        <NavBar />
         <Box style={{ width: '100%', justifyContent: 'center' }}>
           <Grid
             container
@@ -70,7 +33,7 @@ const Search = () => {
               xl={5}
               style={{ justifyContent: 'center', alignItems: 'center' }}
             >
-              <SearchBox />
+              <SearchInputBox />
             </Grid>
           </Grid>
         </Box>
@@ -82,12 +45,12 @@ const Search = () => {
           <Grid container>
             <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
               <HeaderText>내 북마크</HeaderText>
-              <BookmarkBox />
+              <SearchBookmarkBox />
             </Grid>
 
             <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
               <HeaderText>검색 결과</HeaderText>
-              <ResultBox />
+              <SearchResultBox />
             </Grid>
           </Grid>
         </Box>
@@ -96,22 +59,14 @@ const Search = () => {
   );
 };
 
-const Logo = styled('span')`
+const HeaderText = styled('span')`
   font-family: Pretendard;
   font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
   color: #000000;
-`;
-
-const MenuText = styled('span')`
-  font-family: Pretendard;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 18px;
-  color: #000000;
+  margin-left: 12px;
 `;
 
 const HeaderText = styled('span')`
