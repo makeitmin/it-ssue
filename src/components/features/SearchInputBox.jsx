@@ -6,11 +6,11 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import { token } from '../../configs/config';
-import useResultStore from '../../store/useResultStore';
+import useRepoStore from '../../store/useRepoStore';
 
-const SearchBox = () => {
+const SearchInputBox = () => {
   const [keyword, setKeyword] = useState('');
-  const { setRepos } = useResultStore(state => state);
+  const { setRepos } = useRepoStore(state => state);
 
   const handleOnKeyPress = event => {
     if (event.key === 'Enter') {
@@ -76,4 +76,4 @@ const SearchPaper = styled(Paper)`
   }
 `;
 
-export default SearchBox;
+export default SearchInputBox;

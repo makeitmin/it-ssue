@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import useBookmarkStore from '../../store/useBookmarkStore';
 import { getBookmarks } from '../../utils';
 
-const Bookmark = ({ data }) => {
+const BookmarkButton = ({ data }) => {
   const [isChecked, setIsChecked] = useState(false);
   const { setUserBookmarks } = useBookmarkStore(state => state);
 
@@ -35,7 +35,7 @@ const Bookmark = ({ data }) => {
   };
 
   return (
-    <BookmarkButton
+    <BookmarkCheckbox
       checked={isChecked}
       onChange={handleChangeBookmark}
       size="small"
@@ -45,10 +45,10 @@ const Bookmark = ({ data }) => {
   );
 };
 
-const BookmarkButton = styled(Checkbox)`
+const BookmarkCheckbox = styled(Checkbox)`
   &&.MuiButtonBase-root {
     padding: 0px;
   }
 `;
 
-export default Bookmark;
+export default BookmarkButton;

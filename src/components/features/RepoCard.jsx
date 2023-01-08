@@ -1,7 +1,7 @@
 import { Card, CardContent, Grid, Box, Chip } from '@mui/material';
 import styled from 'styled-components';
 
-import Bookmark from './Bookmark';
+import BookmarkButton from './BookmarkButton';
 
 const RepoCard = ({ details }) => {
   return (
@@ -17,11 +17,10 @@ const RepoCard = ({ details }) => {
           <TitleBox>
             <Title>{details.full_name}</Title>
           </TitleBox>
-          <Bookmark data={details} />
+          <BookmarkButton data={details} />
         </Grid>
         <Box
           style={{
-            // textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             overflowX: 'auto',
             width: '100%',

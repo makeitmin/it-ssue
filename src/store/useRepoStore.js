@@ -1,8 +1,8 @@
 import create from 'zustand';
 
-const useResultStore = create(set => ({
+const useRepoStore = create(set => ({
   repos: [],
   setRepos: input => set(state => ({ repos: input })),
 }));
 
-export default useResultStore;
+export default useRepoStore;

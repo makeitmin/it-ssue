@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Grid } from '@mui/material';
 
-import useResultStore from '../../store/useResultStore';
+import useRepoStore from '../../store/useRepoStore';
 
 import RepoCard from './RepoCard';
 
-const ResultBox = () => {
-  const { repos } = useResultStore(state => state);
+const SearchResultBox = () => {
+  const { repos } = useRepoStore(state => state);
 
   return (
     <Grid
@@ -26,4 +26,4 @@ const ResultBox = () => {
   );
 };
 
-export default ResultBox;
+export default SearchResultBox;

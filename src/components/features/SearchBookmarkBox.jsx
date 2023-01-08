@@ -1,18 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Grid } from '@mui/material';
 
 import useBookmarkStore from '../../store/useBookmarkStore';
-import { getBookmarks } from '../../utils';
 
 import RepoCard from './RepoCard';
 
-const BookmarkBox = () => {
-  const { userBookmarks, setUserBookmarks } = useBookmarkStore(state => state);
-
-  useEffect(() => {
-    setUserBookmarks(getBookmarks());
-  }, []);
+const SearchBookmarkBox = () => {
+  const { userBookmarks } = useBookmarkStore(state => state);
 
   return (
     <Grid
@@ -32,4 +27,4 @@ const BookmarkBox = () => {
   );
 };
 
-export default BookmarkBox;
+export default SearchBookmarkBox;
