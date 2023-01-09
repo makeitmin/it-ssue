@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { Container, Box, Grid, Stack } from '@mui/material';
 import styled from 'styled-components';
@@ -8,11 +8,12 @@ import SearchBookmarkBox from '../components/features/SearchBookmarkBox';
 import SearchInputBox from '../components/features/SearchInputBox';
 import SearchResultBox from '../components/features/SearchResultBox';
 
-/*
-  검색 페이지
-*/
-
+/* 검색 페이지 */
 const Search = () => {
+  /* useRef - 검색된 Repository 각각에 할당 */
+  const repoRefs = useRef([]);
+  repoRefs.current = [];
+
   return (
     <Container>
       <Stack spacing={5}>
@@ -45,12 +46,12 @@ const Search = () => {
           <Grid container>
             <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
               <HeaderText>내 북마크</HeaderText>
-              <SearchBookmarkBox />
+              <SearchBookmarkBox repoRefs={repoRefs} />
             </Grid>
 
             <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
               <HeaderText>검색 결과</HeaderText>
-              <SearchResultBox />
+              <SearchResultBox repoRefs={repoRefs} />
             </Grid>
           </Grid>
         </Box>
