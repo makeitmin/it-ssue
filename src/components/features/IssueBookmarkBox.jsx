@@ -18,7 +18,10 @@ const IssueBookmarkBox = ({ setTargetRepo }) => {
         userBookmarks.map((bm, idx) => {
           return (
             <Grid item key={bm.id} style={{ maxWidth: 'calc(100%/4)' }}>
-              <CardActions onClick={() => setTargetRepo(bm.full_name)}>
+              <CardActions
+                onClick={() => setTargetRepo(bm.full_name)}
+                style={{ padding: '0px' }}
+              >
                 <RepoCard details={bm} />
               </CardActions>
             </Grid>
