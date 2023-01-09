@@ -69,14 +69,4 @@ const HeaderText = styled('span')`
   margin-left: 12px;
 `;
 
-const HeaderText = styled('span')`
-  font-family: Pretendard;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 20px;
-  color: #000000;
-  margin-left: 12px;
-`;
-
 export default Search;

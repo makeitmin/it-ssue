@@ -44,7 +44,7 @@ const IssueBox = ({ targetRepo }) => {
 
   return (
     <>
-      <Grid container alignItems="stretch" style={{ width: '100%' }}>
+      <Grid container alignItems="center" style={{ width: '100%' }}>
         {issues.length > 0 ? (
           issues.map((issue, idx) => {
             return (
@@ -69,6 +69,11 @@ const IssueBox = ({ targetRepo }) => {
         count={totalPageCount}
         page={page}
         onChange={(event, value) => setPage(value)}
+        style={{
+          position: 'absolute',
+          left: 'calc(100% / 3)',
+          bottom: '10px',
+        }}
       />
     </>
   );

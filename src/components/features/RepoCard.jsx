@@ -64,6 +64,9 @@ const ShadowCard = styled(Card)`
     border-radius: 8px;
     margin: 12px;
   }
+  &&.MuiPaper-root .MuiCardContent-root {
+    padding: 8px 16px;
+  }
 `;
 
 export default RepoCard;
