@@ -8,22 +8,29 @@ import styled from 'styled-components';
 import { token } from '../../configs/config';
 import useRepoStore from '../../store/useRepoStore';
 
+/* 검색창 */
 const SearchInputBox = () => {
-  const [keyword, setKeyword] = useState('');
+  /* 검색된 Repository setter 함수 (전역) */
   const { setRepos } = useRepoStore(state => state);
+  const [keyword, setKeyword] = useState(''); // 검색어 변수
 
+  /* Enter 키 입력시 클릭 이벤트 발생 */
   const handleOnKeyPress = event => {
     if (event.key === 'Enter') {
       handleClickSearch(event);
     }
   };
 
+  /* 검색창 Input Value onChange 함수 */
   const handleChangeSearch = event => {
     setKeyword(event.target.value);
   };
+
+  /* 검색 클릭 이벤트 (Github API 호출) */
   const handleClickSearch = async event => {
     event.preventDefault();
     if (keyword) {
+      /* 키워드가 있을 경우에만 API 호출 */
       const response = await axios.get(
         'https://api.github.com/search/repositories',
         {
@@ -35,8 +42,9 @@ const SearchInputBox = () => {
           },
         },
       );
+
+      /* 전역 변수에 검색 결과 저장 */
       setRepos(response.data.items);
-      // const count = response.data.total_count;
     }
   };
   return (
