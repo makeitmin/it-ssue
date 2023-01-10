@@ -38,10 +38,15 @@ const RepoCard = ({ details, refs }) => {
       /* 북마크 O -> 북마크 X 일 경우 */
       /* 기존 북마크 배열의 요소와 클릭된 북마크의 id 비교 후 삭제 */
       temp = temp.filter((t, idx) => t.id !== details.id);
-      /* 클릭된 북마크와 같은 Repository의 북마크를 검색된 영역 내에서 ref로 탐색하여 클릭 이벤트 유발 */
-      refs.current[
-        `repo-${details.id}`
-      ].children[0].children[0].children[0].children[1].children[0].click();
+      if (refs) {
+        /* 
+          탐색할 refs가 존재할 경우에만
+          클릭된 북마크와 같은 Repository의 북마크를 영역 내에서 ref로 탐색하여 클릭 이벤트 유발
+        */
+        refs.current[
+          `repo-${details.id}`
+        ].children[0].children[0].children[0].children[1].children[0].click();
+      }
     }
     setUserBookmarks(temp);
     setIsChecked(!isChecked);
