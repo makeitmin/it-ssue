@@ -23,7 +23,7 @@ const IssueBox = ({ targetRepo }) => {
       params: {
         q: `repo:${_targetRepo} type:issue`,
         page: page,
-        per_page: 9,
+        per_page: 15,
       },
     });
 

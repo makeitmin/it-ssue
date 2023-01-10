@@ -20,15 +20,17 @@ const Issue = () => {
 
   return (
     <Container>
-      <Stack>
+      <Stack spacing={10}>
         <NavBar />
         <Box>
-          <HeaderText>내 북마크</HeaderText>
-          <IssueBookmarkBox setTargetRepo={setTargetRepo} />
-        </Box>
-        <Box>
-          <HeaderText>이슈</HeaderText>
-          <IssueBox targetRepo={targetRepo} />
+          <Box>
+            <HeaderText>내 북마크</HeaderText>
+            <IssueBookmarkBox setTargetRepo={setTargetRepo} />
+          </Box>
+          <Box style={{ marginTop: '30px' }}>
+            <HeaderText>이슈</HeaderText>
+            <IssueBox targetRepo={targetRepo} />
+          </Box>
         </Box>
       </Stack>
     </Container>
