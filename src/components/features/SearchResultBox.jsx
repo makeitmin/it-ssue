@@ -13,8 +13,6 @@ const SearchResultBox = ({ repoRefs }) => {
   return (
     <Grid
       container
-      spacing={2}
-      gutter={0}
       style={{ maxHeight: '60vh', overflow: 'auto', marginTop: '20px' }}
     >
       {repos.map((repo, idx) => {
@@ -22,6 +20,7 @@ const SearchResultBox = ({ repoRefs }) => {
           <Grid
             key={repo.id}
             item
+            style={{ padding: '8px' }}
             xs={12}
             sm={12}
             md={4}

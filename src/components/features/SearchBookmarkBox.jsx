@@ -14,7 +14,7 @@ const SearchBookmarkBox = ({ repoRefs }) => {
   return (
     <Stack
       spacing={2}
-      style={{ maxHeight: '60vh', overflow: 'auto', marginTop: '36px' }}
+      style={{ maxHeight: '60vh', overflow: 'auto', marginTop: '20px' }}
     >
       {userBookmarks.map((ub, idx) => (
         <RepoCard key={ub.id} details={ub} refs={repoRefs} />
