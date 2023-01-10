@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { Card, CardContent, Grid, Box, Chip } from '@mui/material';
+import { CardContent, Box, Chip } from '@mui/material';
 import styled from 'styled-components';
 
 import useBookmarkStore from '../../store/useBookmarkStore';
 import { getBookmarks } from '../../utils';
+import { PlainCard } from '../styles/Cards';
+import { Header3 } from '../styles/Texts';
 
 import BookmarkButton from './BookmarkButton';
 import WarningAlert from './WarningAlert';
@@ -54,41 +56,52 @@ const RepoCard = ({ details, refs }) => {
 
   return (
     <>
-      <ShadowCard>
-        <CardContent>
-          <Grid
-            container
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            style={{ marginBottom: '12px' }}
-          >
-            <TitleBox>
-              <Title>{details.full_name}</Title>
-            </TitleBox>
-            <BookmarkButton
-              isChecked={isChecked}
-              handleChangeInput={handleChangeBookmark}
-            />
-          </Grid>
+      <PlainCard>
+        <CardContent style={{ height: '70px' }}>
           <Box
-            style={{
-              whiteSpace: 'nowrap',
-              overflowX: 'auto',
-              width: '100%',
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              height: '100%',
             }}
           >
-            {details.topics.map((topic, idx) => (
-              <Chip
-                key={topic}
-                label={`${topic}`}
-                size="small"
-                style={{ marginRight: '8px' }}
-              />
-            ))}
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <TitleBox>
+                <Header3>{details.full_name}</Header3>
+              </TitleBox>
+              <Box>
+                <BookmarkButton
+                  isChecked={isChecked}
+                  handleChangeInput={handleChangeBookmark}
+                />
+              </Box>
+            </Box>
+            <Box
+              style={{
+                whiteSpace: 'nowrap',
+                overflowX: 'auto',
+                width: '100%',
+              }}
+            >
+              {details.topics.map((topic, idx) => (
+                <Chip
+                  key={topic}
+                  label={`${topic}`}
+                  size="small"
+                  style={{ marginRight: '8px' }}
+                />
+              ))}
+            </Box>
           </Box>
         </CardContent>
-      </ShadowCard>
+      </PlainCard>
       <WarningAlert
         open={isAlertOpen}
         setOpen={setIsAlertOpen}
@@ -98,32 +111,12 @@ const RepoCard = ({ details, refs }) => {
   );
 };
 
-const Title = styled('span')`
-  font-family: Pretendard;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 18px;
-  color: #000000;
-`;
-
 const TitleBox = styled(Box)`
   && {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     width: calc(100% - 24px);
-  }
-`;
-
-const ShadowCard = styled(Card)`
-  &&.MuiPaper-root {
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    margin: 12px;
-  }
-  &&.MuiPaper-root .MuiCardContent-root {
-    padding: 8px 16px;
   }
 `;
 

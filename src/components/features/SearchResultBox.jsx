@@ -11,12 +11,16 @@ const SearchResultBox = ({ repoRefs }) => {
   const { repos } = useRepoStore(state => state);
 
   return (
-    <Grid container style={{ maxHeight: '60vh', overflow: 'auto' }}>
+    <Grid
+      container
+      style={{ maxHeight: '60vh', overflow: 'auto', marginTop: '20px' }}
+    >
       {repos.map((repo, idx) => {
         return (
           <Grid
             key={repo.id}
             item
+            style={{ padding: '8px' }}
             xs={12}
             sm={12}
             md={4}
