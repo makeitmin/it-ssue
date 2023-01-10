@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import useBookmarkStore from '../../store/useBookmarkStore';
 import { getBookmarks } from '../../utils';
+import { Header3 } from '../styles/Texts';
 
 import BookmarkButton from './BookmarkButton';
 import WarningAlert from './WarningAlert';
@@ -64,7 +65,7 @@ const RepoCard = ({ details, refs }) => {
             style={{ marginBottom: '12px' }}
           >
             <TitleBox>
-              <Title>{details.full_name}</Title>
+              <Header3>{details.full_name}</Header3>
             </TitleBox>
             <BookmarkButton
               isChecked={isChecked}
@@ -97,15 +98,6 @@ const RepoCard = ({ details, refs }) => {
     </>
   );
 };
-
-const Title = styled('span')`
-  font-family: Pretendard;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 18px;
-  color: #000000;
-`;
 
 const TitleBox = styled(Box)`
   && {

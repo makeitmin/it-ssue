@@ -9,6 +9,7 @@ import {
 import styled from 'styled-components';
 
 import { getTextColor } from '../../utils';
+import { Header3, Paragraph2 } from '../styles/Texts';
 
 const IssueCard = ({ details }) => {
   return (
@@ -27,10 +28,10 @@ const IssueCard = ({ details }) => {
             style={{ marginBottom: '12px' }}
           >
             <TitleBox>
-              <Sub>{details.full_name}</Sub>
+              <Paragraph2>{details.full_name}</Paragraph2>
             </TitleBox>
             <TitleBox>
-              <Title>{details.title}</Title>
+              <Header3>{details.title}</Header3>
             </TitleBox>
           </Grid>
           <Box
@@ -58,24 +59,6 @@ const IssueCard = ({ details }) => {
     </ShadowCard>
   );
 };
-
-const Title = styled('span')`
-  font-family: Pretendard;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 18px;
-  color: #000000;
-`;
-
-const Sub = styled('span')`
-  font-family: Pretendard;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 16px;
-  color: #000000;
-`;
 
 const TitleBox = styled(Box)`
   && {

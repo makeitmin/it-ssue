@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Grid, Box, Button } from '@mui/material';
 import styled from 'styled-components';
 
+import { Header1, Paragraph1 } from '../styles/Texts';
+
 const NavBar = () => {
   const navigate = useNavigate();
 
@@ -26,39 +28,21 @@ const NavBar = () => {
       >
         <Grid item>
           <Box>
-            <Logo>itssue</Logo>
+            <Header1>itssue</Header1>
           </Box>
         </Grid>
         <Grid item>
           <NavigateButton onClick={() => navigate('/')}>
-            <MenuText>검색하기</MenuText>
+            <Paragraph1>검색하기</Paragraph1>
           </NavigateButton>
           <NavigateButton onClick={() => navigate('/issues')}>
-            <MenuText>모아보기</MenuText>
+            <Paragraph1>모아보기</Paragraph1>
           </NavigateButton>
         </Grid>
       </Grid>
     </Box>
   );
 };
-
-const Logo = styled('span')`
-  font-family: Pretendard;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
-  color: #000000;
-`;
-
-const MenuText = styled('span')`
-  font-family: Pretendard;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 18px;
-  color: #000000;
-`;
 
 const NavigateButton = styled(Button)`
   && {
