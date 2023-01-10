@@ -13,11 +13,7 @@ const NavBar = () => {
     <Box
       style={{
         width: '100%',
-        height: '64px',
-        paddingTop: '20px',
-        paddingBottom: '20px',
-        paddingRight: '12px',
-        paddingLeft: '12px',
+        marginTop: '20px',
       }}
     >
       <Grid

@@ -16,8 +16,8 @@ const Search = () => {
   repoRefs.current = [];
 
   return (
-    <Container>
-      <Stack spacing={5}>
+    <Container maxWidth="xl">
+      <Stack spacing={10}>
         <NavBar />
         <Box style={{ width: '100%', justifyContent: 'center' }}>
           <Grid
@@ -44,11 +44,7 @@ const Search = () => {
             width: '100%',
           }}
         >
-          <Grid
-            container
-            spacing={3}
-            style={{ paddingRight: '12px', paddingLeft: '12px' }}
-          >
+          <Grid container spacing={3}>
             <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
               <ExpansionPanel title={'내 북마크'}>
                 <SearchBookmarkBox repoRefs={repoRefs} />

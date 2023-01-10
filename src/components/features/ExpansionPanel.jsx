@@ -12,7 +12,7 @@ const ExpansionPanel = ({ title, children }) => {
       <PlainAccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Header1>{title}</Header1>
       </PlainAccordionSummary>
-      <AccordionDetails>{children}</AccordionDetails>
+      <PlainAccordionDetails>{children}</PlainAccordionDetails>
     </PlainAccordion>
   );
 };
@@ -30,6 +30,13 @@ const PlainAccordionSummary = styled(AccordionSummary)`
     .MuiAccordionSummary-content {
       margin: 0px;
     }
+  }
+`;
+
+const PlainAccordionDetails = styled(AccordionDetails)`
+  && {
+    padding: 0px;
+    overflow: auto;
   }
 `;
 

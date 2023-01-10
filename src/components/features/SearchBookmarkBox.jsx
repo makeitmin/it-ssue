@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid } from '@mui/material';
+import { Stack } from '@mui/material';
 
 import useBookmarkStore from '../../store/useBookmarkStore';
 
@@ -12,13 +12,14 @@ const SearchBookmarkBox = ({ repoRefs }) => {
   const { userBookmarks } = useBookmarkStore(state => state);
 
   return (
-    <Grid container spacing={2} style={{ maxHeight: '60vh', overflow: 'auto' }}>
+    <Stack
+      spacing={2}
+      style={{ maxHeight: '60vh', overflow: 'auto', marginTop: '36px' }}
+    >
       {userBookmarks.map((ub, idx) => (
-        <Grid key={ub.id} item xs={12} sm={12} md={12} lg={12}>
-          <RepoCard key={ub.id} details={ub} refs={repoRefs} />
-        </Grid>
+        <RepoCard key={ub.id} details={ub} refs={repoRefs} />
       ))}
-    </Grid>
+    </Stack>
   );
 };
 
