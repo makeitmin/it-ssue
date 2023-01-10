@@ -19,7 +19,7 @@ const IssueCard = ({ details }) => {
         target="_blank"
         rel="noreferrer"
       >
-        <CardContent>
+        <CardContent style={{ minHeight: '100px' }}>
           <Grid
             container
             direction="row"
