@@ -33,7 +33,7 @@ const NavBar = () => {
           </Box>
         </Grid>
         <Grid item>
-          <NavigateButton onClick={() => navigate('/')}>
+          <NavigateButton onClick={() => navigate('/it-ssue')}>
             <Header4>검색하기</Header4>
           </NavigateButton>
           <NavigateButton onClick={() => navigate('/issues')}>
