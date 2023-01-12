@@ -1,36 +1,51 @@
 import React from 'react';
 
-import { CardActions, Grid, Typography } from '@mui/material';
+import { CardActions, Box } from '@mui/material';
 
 import useBookmarkStore from '../../store/useBookmarkStore';
+import { Paragraph3 } from '../styles/Texts';
 
 import RepoCard from './RepoCard';
 
+/* 모아보기 - '내 북마크' 영역 */
 const IssueBookmarkBox = ({ setTargetRepo }) => {
+  /* 북마크 배열 변수 (전역) */
   const { userBookmarks } = useBookmarkStore(state => state);
+
   return (
-    <Grid
-      container
-      direction="row"
-      style={{ overflowX: 'auto', width: '100%', whiteSpace: 'nowrap' }}
+    <Box
+      style={{
+        overflowX: 'auto',
+        width: '100%',
+        whiteSpace: 'nowrap',
+        display: 'flex',
+        flexDirection: 'row',
+        marginTop: '20px',
+      }}
     >
       {userBookmarks.length > 0 ? (
         userBookmarks.map((bm, idx) => {
           return (
-            <Grid item key={bm.id} style={{ maxWidth: 'calc(100%/4)' }}>
+            <Box key={bm.id} style={{ width: '250px', marginRight: '10px' }}>
               <CardActions
-                onClick={() => setTargetRepo(bm.full_name)}
-                style={{ padding: '0px' }}
+                key={bm.id}
+                onClick={event => {
+                  if (userBookmarks.find((ub, idx) => ub.id === bm.id)) {
+                    setTargetRepo(bm.full_name);
+                  }
+                }}
+                style={{ padding: '0px', position: 'relative' }}
               >
                 <RepoCard details={bm} />
               </CardActions>
-            </Grid>
+            </Box>
           );
         })
       ) : (
-        <Typography>빈배열</Typography>
+        /* 북마크 없을 경우 */
+        <Paragraph3>북마크를 추가해보세요!</Paragraph3>
       )}
-    </Grid>
+    </Box>
   );
 };
 

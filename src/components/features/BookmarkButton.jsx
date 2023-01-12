@@ -14,10 +14,12 @@ const BookmarkButton = ({ isChecked, handleChangeInput }) => {
       size="small"
       icon={<BookmarkBorderIcon />} // checked === false
       checkedIcon={<BookmarkIcon />} // checked === true
+      onClick={event => event.stopPropagation()}
     />
   );
 };
 
+/* 컴포넌트 커스텀 */
 const BookmarkCheckbox = styled(Checkbox)`
   &&.MuiButtonBase-root {
     padding: 0px;

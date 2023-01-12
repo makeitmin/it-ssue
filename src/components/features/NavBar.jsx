@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { Grid, Box, Button } from '@mui/material';
 import styled from 'styled-components';
 
-import { Header1, Paragraph1 } from '../styles/Texts';
+import { Header1, Header4 } from '../styles/Texts';
 
+/* 상단바 컴포넌트 */
 const NavBar = () => {
   const navigate = useNavigate();
 
@@ -13,7 +14,11 @@ const NavBar = () => {
     <Box
       style={{
         width: '100%',
-        marginTop: '20px',
+        position: 'sticky',
+        top: '0px',
+        paddingTop: '20px',
+        zIndex: 1000,
+        background: '#FFFFFF',
       }}
     >
       <Grid
@@ -29,10 +34,10 @@ const NavBar = () => {
         </Grid>
         <Grid item>
           <NavigateButton onClick={() => navigate('/')}>
-            <Paragraph1>검색하기</Paragraph1>
+            <Header4>검색하기</Header4>
           </NavigateButton>
           <NavigateButton onClick={() => navigate('/issues')}>
-            <Paragraph1>모아보기</Paragraph1>
+            <Header4>모아보기</Header4>
           </NavigateButton>
         </Grid>
       </Grid>
@@ -40,6 +45,7 @@ const NavBar = () => {
   );
 };
 
+/* 커스텀 컴포넌트 */
 const NavigateButton = styled(Button)`
   && {
     color: #000000;

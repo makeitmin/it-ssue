@@ -1,4 +1,4 @@
-import { Card } from '@mui/material';
+import { Card, Box } from '@mui/material';
 import styled from 'styled-components';
 
 export const ShadowCard = styled(Card)`
@@ -18,5 +18,20 @@ export const PlainCard = styled(Card)`
     border-radius: 8px;
   &&.MuiPaper-root .MuiCardContent-root {
     padding: 8px 16px;
+  }
+`;
+
+export const ResponsiveBox = styled(Box)`
+  && {
+    height: calc(100% - 58px);
+    margin-top: 38px;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+  }
+  @media screen and (max-width: 900px) {
+    && {
+      display: block;
+    }
   }
 `;

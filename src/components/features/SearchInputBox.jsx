@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 
+import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
-import { IconButton, InputBase, Paper } from '@mui/material';
+import { IconButton, InputBase, Paper, Divider } from '@mui/material';
 import axios from 'axios';
 import styled from 'styled-components';
 
 import { token } from '../../configs/config';
-import useRepoStore from '../../store/useRepoStore';
+import { useRepoStore } from '../../store/useRepoStore';
 
 /* 검색창 */
-const SearchInputBox = () => {
+const SearchInputBox = ({ keyword, setKeyword, page }) => {
   /* 검색된 Repository setter 함수 (전역) */
   const { setRepos } = useRepoStore(state => state);
-  const [keyword, setKeyword] = useState(''); // 검색어 변수
 
   /* Enter 키 입력시 클릭 이벤트 발생 */
   const handleOnKeyPress = event => {
@@ -39,32 +39,54 @@ const SearchInputBox = () => {
           },
           params: {
             q: keyword,
+            per_page: 15,
+            page: page,
           },
         },
       );
-
       /* 전역 변수에 검색 결과 저장 */
       setRepos(response.data.items);
     }
   };
+
+  /* 'X' 버튼 클릭시 검색어 clear */
+  const handleClickClear = event => {
+    event.preventDefault();
+    setKeyword('');
+  };
+
   return (
-    <SearchPaper
+    <SearchInputPaper
       component="form"
       sx={{
         p: '2px 4px',
         display: 'flex',
         alignItems: 'center',
-        width: '100%',
+        width: 'inherit',
       }}
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="깃허브 레포지토리를 검색해보세요!"
         value={keyword}
+        autoFocus
         onChange={handleChangeSearch}
         onKeyPress={handleOnKeyPress}
         inputProps={{ 'aria-label': 'search google maps' }}
       />
+      {keyword.length > 0 ? (
+        <IconButton
+          type="button"
+          sx={{ p: '10px' }}
+          aria-label="search"
+          onClick={handleClickClear}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : (
+        ''
+      )}
+      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
       <IconButton
         type="button"
         sx={{ p: '10px' }}
@@ -73,11 +95,12 @@ const SearchInputBox = () => {
       >
         <SearchIcon />
       </IconButton>
-    </SearchPaper>
+    </SearchInputPaper>
   );
 };
 
-const SearchPaper = styled(Paper)`
+/* 커스텀 컴포넌트 */
+const SearchInputPaper = styled(Paper)`
   && {
     box-shadow: 0px 0px 0px;
     border: 1px solid #d6d6d6;

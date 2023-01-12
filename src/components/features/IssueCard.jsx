@@ -1,83 +1,100 @@
+import CommentIcon from '@mui/icons-material/Comment';
+import EventIcon from '@mui/icons-material/Event';
 import {
-  Card,
   CardContent,
   Grid,
   Box,
   Chip,
   CardActionArea,
+  Tooltip,
 } from '@mui/material';
+import moment from 'moment';
 import styled from 'styled-components';
 
 import { getTextColor } from '../../utils';
-import { Header3, Paragraph2 } from '../styles/Texts';
+import { ShadowCard } from '../styles/Cards';
+import { Header3, Paragraph2, Paragraph3 } from '../styles/Texts';
 
+/* 개별 이슈 카드 컴포넌트 */
 const IssueCard = ({ details }) => {
   return (
     <ShadowCard>
-      <CardActionArea
-        href={`${details.html_url}`}
-        target="_blank"
-        rel="noreferrer"
-      >
-        <CardContent style={{ minHeight: '100px' }}>
-          <Grid
-            container
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            style={{ marginBottom: '12px' }}
-          >
-            <TitleBox>
-              <Paragraph2>{details.full_name}</Paragraph2>
-            </TitleBox>
-            <TitleBox>
-              <Header3>{details.title}</Header3>
-            </TitleBox>
-          </Grid>
-          <Box
-            style={{
-              whiteSpace: 'nowrap',
-              overflowX: 'auto',
-              width: '100%',
-            }}
-          >
-            {details.labels.map((label, idx) => (
-              <Chip
-                key={label.id}
-                label={`${label.name}`}
-                size="small"
-                style={{
-                  marginRight: '8px',
-                  backgroundColor: `#${label.color}`,
-                  color: `${getTextColor(`#${label.color}`)}`,
-                }}
-              />
-            ))}
-          </Box>
-        </CardContent>
-      </CardActionArea>
+      <Tooltip title={details.title}>
+        <CardActionArea
+          href={`${details.html_url}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <CardContent style={{ minHeight: '100px' }}>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              style={{ marginBottom: '12px' }}
+            >
+              <OnelineBox>
+                <Paragraph2>{details.full_name}</Paragraph2>
+              </OnelineBox>
+              <OnelineBox>
+                <Header3>{details.title}</Header3>
+              </OnelineBox>
+            </Grid>
+            <Box
+              style={{
+                marginBottom: '10px',
+              }}
+            >
+              <Paragraph3 style={{ marginRight: '5px' }}>
+                <CommentIcon
+                  fontSize="10"
+                  style={{ lineHeight: '14px', marginRight: '2px' }}
+                />
+                댓글 {details.comments}개
+              </Paragraph3>
+              <Paragraph3>
+                <EventIcon
+                  fontSize="10"
+                  style={{ lineHeight: '14px', marginRight: '2px' }}
+                />
+                마지막 업데이트{' '}
+                {moment(details.updated_at).format('YYYY-MM-DD')}
+              </Paragraph3>
+            </Box>
+            <Box
+              style={{
+                whiteSpace: 'nowrap',
+                overflowX: 'auto',
+                width: '100%',
+              }}
+            >
+              {details.labels.map((label, idx) => (
+                <Chip
+                  key={label.id}
+                  label={`${label.name}`}
+                  size="small"
+                  style={{
+                    marginRight: '8px',
+                    backgroundColor: `#${label.color}`,
+                    color: `${getTextColor(`#${label.color}`)}`,
+                  }}
+                />
+              ))}
+            </Box>
+          </CardContent>
+        </CardActionArea>
+      </Tooltip>
     </ShadowCard>
   );
 };
 
-const TitleBox = styled(Box)`
+/* 커스텀 컴포넌트 */
+const OnelineBox = styled(Box)`
   && {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     width: calc(100% - 24px);
-  }
-`;
-
-const ShadowCard = styled(Card)`
-  &&.MuiPaper-root {
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    margin: 12px;
-  }
-
-  &&.MuiPaper-root .MuiButtonBase-root .MuiCardContent-root {
-    padding: 8px 16px;
   }
 `;
 
