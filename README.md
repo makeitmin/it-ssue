@@ -6,6 +6,7 @@
 (데모는 GitHub API 정책에 따라 1시간 API 호출 제한(60회)으로 인해 작동하지 않을 수 있습니다.)
 
 ### 개발 환경
+- MacOS
 - Node.js 16
 - React.js 18
 - GitHub API
