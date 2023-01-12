@@ -6,6 +6,7 @@ import axios from 'axios';
 import IssueBookmarkBox from '../components/features/IssueBookmarkBox';
 import IssueBox from '../components/features/IssueBox';
 import NavBar from '../components/features/NavBar';
+import WarningAlert from '../components/features/WarningAlert';
 import { ResponsiveBox } from '../components/styles/Cards';
 import { Header2 } from '../components/styles/Texts';
 import { token } from '../configs/config';
@@ -17,35 +18,42 @@ const Issue = () => {
   const [issues, setIssues] = useState([]); // 선택된 북마크의 이슈 목록 배열 변수
   const [page, setPage] = useState(1); // 이슈 목록의 페이지 넘버
   const [totalPageCount, setTotalPageCount] = useState(0); // 전체 페이지 개수
+  const [open, setOpen] = useState(false); // 검색 오류 alert
 
   /* 북마크 배열 변수 (전역) */
   const { userBookmarks } = useBookmarkStore(state => state);
 
   const getGithubIssues = async _targetRepo => {
-    const response = await axios.get(`https://api.github.com/search/issues`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: {
-        q: `repo:${_targetRepo} type:issue`,
-        page: page,
-        per_page: 9,
-      },
-    });
+    try {
+      const response = await axios.get(`https://api.github.com/search/issues`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          q: `repo:${_targetRepo} type:issue`,
+          page: page,
+          per_page: 9,
+        },
+      });
 
-    if (response.data.total_count / 9 > 1000) {
-      /* 이슈 개수를 최대 1000개로 제한 (Github 정책) */
-      setTotalPageCount(Math.ceil(1000 / 9));
-    } else {
-      setTotalPageCount(Math.ceil(response.data.total_count / 9));
+      if (response.data.total_count / 9 > 1000) {
+        /* 이슈 개수를 최대 1000개로 제한 (Github 정책) */
+        setTotalPageCount(Math.ceil(1000 / 9));
+      } else {
+        setTotalPageCount(Math.ceil(response.data.total_count / 9));
+      }
+
+      /* 검색된 이슈 데이터에 해당하는 레포지토리명 추가 */
+      const _issues = response.data.items.map((i, idx) => {
+        i['full_name'] = _targetRepo;
+        return i;
+      });
+      setIssues(_issues);
+    } catch (error) {
+      if (error.response.status >= 500) {
+        setOpen(true);
+      }
     }
-
-    /* 검색된 이슈 데이터에 해당하는 레포지토리명 추가 */
-    const _issues = response.data.items.map((i, idx) => {
-      i['full_name'] = _targetRepo;
-      return i;
-    });
-    setIssues(_issues);
   };
 
   useEffect(() => {
@@ -94,6 +102,11 @@ const Issue = () => {
           </Stack>
         </Box>
       </ResponsiveBox>
+      <WarningAlert
+        open={open}
+        setOpen={setOpen}
+        message="이슈를 가져오지 못했습니다. 잠시 후 다시 시도해주세요."
+      />
     </Container>
   );
 };
