@@ -1,82 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import { Grid, Typography, Pagination } from '@mui/material';
-import axios from 'axios';
-
-import { token } from '../../configs/config';
-import useBookmarkStore from '../../store/useBookmarkStore';
+import { Grid, Pagination, Box } from '@mui/material';
+import styled from 'styled-components';
 
 import IssueCard from './IssueCard';
 
-const IssueBox = ({ targetRepo }) => {
-  const [issues, setIssues] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPageCount, setTotalPageCount] = useState(0);
-
-  const { userBookmarks } = useBookmarkStore(state => state);
-
-  const getGithubIssues = async _targetRepo => {
-    const response = await axios.get(`https://api.github.com/search/issues`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: {
-        q: `repo:${_targetRepo} type:issue`,
-        page: page,
-        per_page: 15,
-      },
-    });
-
-    setTotalPageCount(Math.ceil(response.data.total_count / 9));
-
-    const _issues = response.data.items.map((i, idx) => {
-      i['full_name'] = _targetRepo;
-      return i;
-    });
-    setIssues(_issues);
-  };
-
-  useEffect(() => {
-    if (targetRepo !== undefined) {
-      getGithubIssues(targetRepo);
-    }
-  }, [targetRepo, userBookmarks, page]);
-
+/* 모아보기 - 이슈 목록 영역 */
+const IssueBox = ({ totalPageCount, issues, page, setPage }) => {
   return (
-    <>
-      <Grid container alignItems="center" style={{ width: '100%' }}>
-        {issues.length > 0 ? (
-          issues.map((issue, idx) => {
-            return (
-              <Grid
-                item
-                key={issue.node_id}
-                xs={12}
-                sm={12}
-                md={4}
-                lg={4}
-                xl={4}
-              >
-                <IssueCard details={issue} />
-              </Grid>
-            );
-          })
-        ) : (
-          <Typography>빈배열</Typography>
-        )}
+    <Box style={{ minHeight: '50vh', marginTop: '20px', position: 'relative' }}>
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="center"
+        style={{ width: '100%', rowGap: '16px' }}
+      >
+        {issues.length > 0
+          ? issues.map((issue, idx) => {
+              return (
+                <Grid
+                  item
+                  style={{ padding: '0px 8px' }}
+                  key={issue.node_id}
+                  xs={12}
+                  sm={12}
+                  md={4}
+                  lg={4}
+                  xl={4}
+                >
+                  <IssueCard details={issue} />
+                </Grid>
+              );
+            })
+          : ''}
       </Grid>
-      <Pagination
-        count={totalPageCount}
-        page={page}
-        onChange={(event, value) => setPage(value)}
-        style={{
-          position: 'absolute',
-          left: 'calc(100% / 3)',
-          bottom: '10px',
-        }}
-      />
-    </>
+      {issues.length > 0 ? (
+        <ResponsivePagination
+          count={totalPageCount}
+          page={page}
+          onChange={(event, value) => setPage(value)}
+        />
+      ) : (
+        ''
+      )}
+    </Box>
   );
 };
+
+/* 커스텀 컴포넌트 */
+
+const ResponsivePagination = styled(Pagination)`
+  && {
+    margin-top: 30px;
+    position: absolute;
+    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @media screen and (max-width: 900px) {
+    && {
+      width: 100%;
+    }
+  }
+`;
 
 export default IssueBox;
