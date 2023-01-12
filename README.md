@@ -16,6 +16,7 @@ itssue(잇슈)는 깃허브 레포지토리를 검색하고 북마크에 등록�
 
 ### 실행 방법
 1. Github token 발급 후 config.js 수정
+(키 없이 실행할 경우 하루 API 호출 60번 제한)
 ```
 # configs/config.js
 export const token = "발급 받은 키";
