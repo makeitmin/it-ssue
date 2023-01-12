@@ -16,6 +16,7 @@ export const PlainCard = styled(Card)`
     box-shadow: none;
     border: 1px solid #ECECEC;
     border-radius: 8px;
+    width: -webkit-fill-available;
   &&.MuiPaper-root .MuiCardContent-root {
     padding: 8px 16px;
   }
