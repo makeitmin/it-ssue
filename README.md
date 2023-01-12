@@ -3,7 +3,7 @@
 ### 서비스 개요
 [itssue(잇슈)](https://makeitmin.github.io/it-ssue/)는 깃허브 레포지토리를 검색하고 북마크에 등록한 레포지토리의 이슈를 모아볼 수 있는 서비스입니다.
 
-(데모는 GitHub API 정책에 따라 하루 API 호출 제한(60회)으로 인해 작동하지 않을 수 있습니다.)
+(데모는 GitHub API 정책에 따라 1시간 API 호출 제한(60회)으로 인해 작동하지 않을 수 있습니다.)
 
 ### 개발 환경
 - Node.js 16
@@ -18,7 +18,7 @@
 
 ### 실행 방법
 1. Github token 발급 후 config.js 수정
-(키 없이 실행할 경우 하루 API 호출 60번 제한)
+(키 없이 실행할 경우 1시간 API 호출 60번 제한)
 ```
 # configs/config.js
 export const token = "발급 받은 키";
