@@ -6,7 +6,7 @@ import useBookmarkStore from '../../store/useBookmarkStore';
 
 import RepoCard from './RepoCard';
 
-/* 검색하기 -> 내 북마크 */
+/* 검색하기 - '내 북마크' 영역 */
 const SearchBookmarkBox = ({ repoRefs }) => {
   /* 북마크 배열 변수 (전역) */
   const { userBookmarks } = useBookmarkStore(state => state);

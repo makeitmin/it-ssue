@@ -1,22 +1,22 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import styled from 'styled-components';
 
-import { Header1 } from '../styles/Texts';
+import { Header2 } from '../styles/Texts';
 
+/* Collapse & Expand 컴포넌트 */
 const ExpansionPanel = ({ title, children }) => {
   return (
-    <PlainAccordion>
+    <PlainAccordion defaultExpanded>
       <PlainAccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Header1>{title}</Header1>
+        <Header2>{title}</Header2>
       </PlainAccordionSummary>
       <PlainAccordionDetails>{children}</PlainAccordionDetails>
     </PlainAccordion>
   );
 };
 
+/* 컴포넌트 커스텀 */
 const PlainAccordion = styled(Accordion)`
   &&.MuiPaper-root {
     box-shadow: none;
