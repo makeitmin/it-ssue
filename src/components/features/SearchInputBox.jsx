@@ -33,20 +33,21 @@ const SearchInputBox = ({ keyword, setKeyword, page }) => {
   const handleClickSearch = async event => {
     event.preventDefault();
     if (keyword) {
+      const config = {
+        params: {
+          q: keyword,
+          per_page: 21,
+          page: page,
+        },
+      };
+      if (token) {
+        config['headers'] = { Authorization: `Bearer ${token}` };
+      }
       try {
         /* 키워드가 있을 경우에만 API 호출 */
         const response = await axios.get(
           'https://api.github.com/search/repositories',
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            params: {
-              q: keyword,
-              per_page: 21,
-              page: page,
-            },
-          },
+          config,
         );
         /* 전역 변수에 검색 결과 저장 */
         setRepos(response.data.items);
