@@ -1,20 +1,20 @@
 # it-ssue
 
-## 서비스 개요
+### 서비스 개요
 itssue(잇슈)는 깃허브 레포지토리를 검색하고 북마크에 등록한 레포지토리의 이슈를 모아볼 수 있는 서비스입니다.
 
-## 개발 환경
+### 개발 환경
 - Node.js 16
 - React.js 18
 - GitHub API
 
-## 라이브러리
+### 라이브러리
 - axios (REST API 통신)
 - zustand (전역 상태관리)
 - Material-UI (스타일)
 - styled-components (스타일)
 
-## 실행 방법
+### 실행 방법
 1. Github token 발급 후 config.js 수정
 ```
 # configs/config.js
@@ -27,7 +27,7 @@ export const token = "발급 받은 키";
 ```
 
 
-# 프로젝트 구조
+### 프로젝트 구조
 ```
 .
 ├── node_modules
