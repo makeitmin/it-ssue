@@ -1,6 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Collapse, Alert, IconButton } from '@mui/material';
 
+/* 북마크 초과시 알림 메세지 */
 const WarningAlert = ({ open, setOpen, message }) => {
   return (
     <Collapse
