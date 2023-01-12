@@ -6,9 +6,13 @@ import Search from './pages/Search';
 import useBookmarkStore from './store/useBookmarkStore';
 import { getBookmarks } from './utils';
 
+/* 라우팅 */
 const App = () => {
+  /* 북마크 배열 변수 (전역) */
   const { setUserBookmarks } = useBookmarkStore();
+
   useEffect(() => {
+    /* 북마크 목록 가져오기 */
     setUserBookmarks(getBookmarks());
   }, []);
 
