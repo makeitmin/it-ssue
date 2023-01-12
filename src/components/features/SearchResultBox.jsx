@@ -7,6 +7,7 @@ import { token } from '../../configs/config';
 import { useRepoStore } from '../../store/useRepoStore';
 
 import RepoCard from './RepoCard';
+import WarningAlert from './WarningAlert';
 
 /* 검색하기 - '검색 결과' 영역 */
 const SearchResultBox = ({ repoRefs, keyword, page, setPage }) => {
@@ -18,26 +19,32 @@ const SearchResultBox = ({ repoRefs, keyword, page, setPage }) => {
   /* 스크롤 맨 아래의 DOM에 할당하는 ref 객체 (무한스크롤) */
   const bottomObserver = useRef();
 
-  const perPage = 15;
+  const [open, setOpen] = useState(false); // 검색 오류 alert
+  const perPage = 21;
 
   /* 레포지토리 검색 함수 */
   const getGithubRepos = async _page => {
-    console.log(_page);
-    const response = await axios.get(
-      'https://api.github.com/search/repositories',
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      const response = await axios.get(
+        'https://api.github.com/search/repositories',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            q: keyword,
+            per_page: perPage,
+            page: _page,
+          },
         },
-        params: {
-          q: keyword,
-          per_page: perPage,
-          page: _page,
-        },
-      },
-    );
-    /* 기존 레포지토리에 검색한 레포지토리 목록 추가 */
-    setRepos([...repos].concat(response.data.items));
+      );
+      /* 기존 레포지토리에 검색한 레포지토리 목록 추가 */
+      setRepos([...repos].concat(response.data.items));
+    } catch (error) {
+      if (error.response.status >= 500) {
+        setOpen(true);
+      }
+    }
   };
 
   useEffect(() => {
@@ -51,7 +58,7 @@ const SearchResultBox = ({ repoRefs, keyword, page, setPage }) => {
           setPage(prev => prev + 1);
         }
       },
-      { threshold: 0.5, rootMargin: '80px' },
+      { threshold: 0.5, rootMargin: '10px' },
     );
     bottomObserver.current = observer;
   });
@@ -81,43 +88,50 @@ const SearchResultBox = ({ repoRefs, keyword, page, setPage }) => {
   }, [page]);
 
   return (
-    <Grid
-      container
-      style={{
-        maxHeight: '50vh',
-        overflow: 'auto',
-        marginTop: '20px',
-        rowGap: '16px',
-        justifyContent: 'space-evenly',
-      }}
-    >
-      {repos.map((repo, idx) => {
-        return (
-          <Grid
-            key={repo.full_name}
-            item
-            style={{ padding: '0px 8px' }}
-            xs={12}
-            sm={12}
-            md={4}
-            lg={4}
-            xl={4}
-            ref={element => {
-              // 북마크 체크 여부 감지하는 ref
-              repoRefs.current[`repo-${repo.id}`] = element;
-            }}
-          >
-            <RepoCard details={repo} refs={repoRefs} />
-          </Grid>
-        );
-      })}
-      {repos.length > 0 && repos.length >= perPage ? (
-        // 스크롤 하단을 감지하는 ref
-        <CircularProgress ref={setBottom} color="inherit" />
-      ) : (
-        ''
-      )}
-    </Grid>
+    <>
+      <Grid
+        container
+        style={{
+          maxHeight: '50vh',
+          overflow: 'auto',
+          marginTop: '20px',
+          rowGap: '16px',
+          justifyContent: 'space-evenly',
+        }}
+      >
+        {repos.map((repo, idx) => {
+          return (
+            <Grid
+              key={repo.full_name}
+              item
+              style={{ padding: '0px 8px' }}
+              xs={12}
+              sm={12}
+              md={4}
+              lg={4}
+              xl={4}
+              ref={element => {
+                // 북마크 체크 여부 감지하는 ref
+                repoRefs.current[`repo-${repo.id}`] = element;
+              }}
+            >
+              <RepoCard details={repo} refs={repoRefs} />
+            </Grid>
+          );
+        })}
+        {repos.length > 0 && repos.length >= perPage ? (
+          // 스크롤 하단을 감지하는 ref
+          <CircularProgress ref={setBottom} color="inherit" />
+        ) : (
+          ''
+        )}
+      </Grid>
+      <WarningAlert
+        open={open}
+        setOpen={setOpen}
+        message="검색 결과를 가져오지 못했습니다. 잠시 후 다시 시도해주세요."
+      />
+    </>
   );
 };
 

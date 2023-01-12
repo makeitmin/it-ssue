@@ -21,7 +21,7 @@ const WarningAlert = ({ open, setOpen, message }) => {
         action={
           <IconButton
             aria-label="close"
-            color="inherit"
+            color="warning"
             size="small"
             onClick={() => {
               setOpen(false);
@@ -30,6 +30,7 @@ const WarningAlert = ({ open, setOpen, message }) => {
             <CloseIcon fontSize="inherit" />
           </IconButton>
         }
+        severity="warning"
         sx={{ mb: 2 }}
       >
         {message}
