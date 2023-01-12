@@ -25,16 +25,20 @@ const Issue = () => {
 
   const getGithubIssues = async _targetRepo => {
     try {
-      const response = await axios.get(`https://api.github.com/search/issues`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const config = {
         params: {
-          q: `repo:${_targetRepo} type:issue`,
-          page: page,
           per_page: 9,
+          page: page,
+          q: `repo:${_targetRepo} type:issue`,
         },
-      });
+      };
+      if (token) {
+        config['headers'] = { Authorization: `Bearer ${token}` };
+      }
+      const response = await axios.get(
+        `https://api.github.com/search/issues`,
+        config,
+      );
 
       if (response.data.total_count / 9 > 1000) {
         /* 이슈 개수를 최대 1000개로 제한 (Github 정책) */

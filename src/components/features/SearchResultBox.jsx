@@ -25,18 +25,19 @@ const SearchResultBox = ({ repoRefs, keyword, page, setPage }) => {
   /* 레포지토리 검색 함수 */
   const getGithubRepos = async _page => {
     try {
+      const config = {
+        params: {
+          q: keyword,
+          per_page: 21,
+          page: page,
+        },
+      };
+      if (token) {
+        config['headers'] = { Authorization: `Bearer ${token}` };
+      }
       const response = await axios.get(
         'https://api.github.com/search/repositories',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          params: {
-            q: keyword,
-            per_page: perPage,
-            page: _page,
-          },
-        },
+        config,
       );
       /* 기존 레포지토리에 검색한 레포지토리 목록 추가 */
       setRepos([...repos].concat(response.data.items));
